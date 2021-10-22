@@ -1,0 +1,28 @@
+model:
+  checkpoint: "bert-base-cased"
+  
+
+training:
+  output_dir: "test-gold"
+  evaluation_strategy: "steps"
+  eval_steps: 100
+  learning_rate: 0.00005
+  per_device_train_batch_size: 2
+  per_device_eval_batch_size: 2
+  gradient_accumulation_steps: 4
+  num_train_epochs: 1
+  weight_decay: 0.01
+  load_best_model_at_end: True
+  metric_for_best_model: 'accuracy'
+  save_total_limit: 1
+  report_to: "wandb"
+  logging_strategy: "steps"
+  logging_steps: 10
+  run_name: "test-gold"
+
+
+defaults:
+  - override hydra/job_logging: colorlog
+  - override hydra/hydra_logging: colorlog
+
+
