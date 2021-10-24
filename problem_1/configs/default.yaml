@@ -3,7 +3,6 @@ model:
   
 
 training:
-  output_dir: "test-gold"
   evaluation_strategy: "steps"
   eval_steps: 100
   learning_rate: 0.00005
@@ -18,7 +17,7 @@ training:
   report_to: "wandb"
   logging_strategy: "steps"
   logging_steps: 10
-  run_name: "test-gold"
+  # run_name: "test-gold"
 
 
 defaults:

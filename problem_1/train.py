@@ -48,14 +48,12 @@ def compute_metrics(p: EvalPrediction):
 @hydra.main(config_path='configs', config_name='default')
 def train(cfg: DictConfig):
 
-    # wandb.init(config=cfg)
-    # # Access all hyperparameter values through wandb.config
-    # cfg = wandb.config
+    wandb.init()
 
     # Simple logging of the configuration
     logger.info(OmegaConf.to_yaml(cfg))
 
-    args = TrainingArguments(**cfg.training)
+    args = TrainingArguments(output_dir=wandb.run.name,**cfg.training)
 
     tokenizer = AutoTokenizer.from_pretrained(cfg.model.checkpoint)
     model_pretrained = AutoModelForSequenceClassification.from_pretrained(cfg.model.checkpoint, num_labels=5)
@@ -73,8 +71,15 @@ def train(cfg: DictConfig):
     )
 
     trainer.train()
+    best_eval = trainer.predict(encoded_dataset["dev"])
+
+    # Log best model accuracy for the sweep to compare
+    logger.info(best_eval.metrics)
+    wandb.log({"best_eval/accuracy" : best_eval.metrics["test_accuracy"]})
 
     predictions = trainer.predict(encoded_dataset["test"])
+
+    
     
 
     # Log confusion matrix in different formats
