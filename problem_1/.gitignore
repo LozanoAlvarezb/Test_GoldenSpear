@@ -135,3 +135,5 @@ aux.py
 *test*
 
 wandb/
+outputs/
+*cache*
