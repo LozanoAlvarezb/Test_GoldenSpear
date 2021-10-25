@@ -23,15 +23,6 @@ import wandb
 import logging
 logger = logging.getLogger(__name__)
 
-# def get_data():
-#     try:
-        
-#         return dataset
-
-#     except Exception as error:
-#         logger.exception("Coudn't load dataset")
-
-
 
 def compute_metrics(p: EvalPrediction):
   """
