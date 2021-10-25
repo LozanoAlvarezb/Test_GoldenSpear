@@ -132,7 +132,6 @@ dmypy.json
 *outputs/
 *app.log
 aux.py
-*test*
 
 wandb/
 outputs/
